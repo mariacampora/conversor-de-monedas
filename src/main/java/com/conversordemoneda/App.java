@@ -5,6 +5,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -96,8 +97,8 @@ public class App
                 continuar = scanner.next().toLowerCase().startsWith("s");
 
             } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
-                scanner.nextLine(); 
+                System.out.println("Ha ocurrido un error: " + e.getMessage());
+                scanner.nextLine();
             }
         }
         scanner.close();
@@ -120,14 +121,27 @@ public class App
     }
 
     private static Moneda seleccionarMoneda() {
-        Moneda[] monedas = Moneda.values();
-        for (int i = 0; i < monedas.length; i++) {
-            System.out.printf("%d. %s (%s)%n", i + 1, monedas[i].getDescripcion(), monedas[i].name());
+        while (true) {
+            try {
+                Moneda[] monedas = Moneda.values();
+                for (int i = 0; i < monedas.length; i++) {
+                    System.out.printf("%d. %s (%s)%n", i + 1, monedas[i].getDescripcion(), monedas[i].name());
+                }
+                System.out.print("Seleccione una opción: ");
+                int seleccion = scanner.nextInt();
+                scanner.nextLine();
+
+                if (seleccion < 1 || seleccion > monedas.length) {
+                    System.out.println("\nError: Opción inválida. Por favor seleccione un número entre 1 y " + monedas.length);
+                    continue;
+                }
+
+                return monedas[seleccion - 1];
+            } catch (InputMismatchException e) {
+                System.out.println("\nError: Por favor ingrese un número válido");
+                scanner.nextLine();
+            }
         }
-        System.out.print("Seleccione una opción: ");
-        int seleccion = scanner.nextInt();
-        scanner.nextLine(); 
-        return monedas[seleccion - 1];
     }
 
     private static String[] obtenerTasasDeCambio(Moneda moneda1, Moneda moneda2) throws Exception {
@@ -161,7 +175,7 @@ public class App
             tasas[0] = rates.get(moneda1.name()).getAsString();
             tasas[1] = rates.get(moneda2.name()).getAsString();
         } else {
-            throw new RuntimeException("Error: Código de respuesta " + response.statusCode());
+            throw new RuntimeException("Error al conectar con el servicio: Código de respuesta " + response.statusCode());
         }
 
         return tasas;
