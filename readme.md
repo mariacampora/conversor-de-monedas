@@ -23,13 +23,21 @@ El objetivo principal es facilitar la conversión de divisas de forma rápida, p
 
 ## Capturas de Pantalla 📸  
 
-*(Inserta aquí algunas capturas de pantalla de tu aplicación en funcionamiento para que los usuarios vean cómo luce.)*  
-![Imagen del conversor de monedas](image.png)
+Imagenes del conversor
+#### Menú del conversor
+![Menú](image-3.png)
+#### Selector de moneda origen y destino
+![Selector de monedas](image-4.png)
+#### Monto a convertir
+![Monto](image-5.png)
+#### Resultado
+![Resultado](image-6.png)
 
 ## Tecnologías Utilizadas 🖥️ 
 
 Este proyecto fue desarrollado con:  
-- Lenguaje de programación: Java  
+- Lenguaje de programación: Java.
+- Libreria Gson en Java.
 
 ## Instalación y Uso 🚀  
 
@@ -45,7 +53,7 @@ Sigue estos pasos para ejecutar el proyecto en tu máquina:
 
 3. Ejecuta la aplicación:
     ```bash
-   En tu editor de código o IDe Haz clic en Run Java
+   En tu editor de código o IDE Haz clic en "Run Java"
 
 4. ¡Empieza a convertir monedas! 🌟
 
