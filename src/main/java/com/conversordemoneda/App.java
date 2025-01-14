@@ -9,10 +9,6 @@ import java.util.Scanner;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-/**
- * Hello world!
- *
- */
 public class App
 {
     private static final String API_URL = "https://v6.exchangerate-api.com/v6/c8cf2f6f3d297d1c91e8fffa/latest/USD";
@@ -53,19 +49,19 @@ public class App
                     continue;
                 }
 
-                // Obtener moneda origen
+                // Moneda origen
                 System.out.println("\n┌─────────────────────────────┐");
                 System.out.println("│    MONEDA DE ORIGEN         │");
                 System.out.println("└─────────────────────────────┘");
                 Moneda monedaOrigen = seleccionarMoneda();
 
-                // Obtener moneda destino
+                // Moneda destino
                 System.out.println("\n┌─────────────────────────────┐");
                 System.out.println("│    MONEDA DE DESTINO        │");
                 System.out.println("└─────────────────────────────┘");
                 Moneda monedaDestino = seleccionarMoneda();
 
-                // Obtener cantidad a convertir
+                // Cantidad a convertir
                 System.out.println("\n┌─────────────────────────────┐");
                 System.out.println("│    CANTIDAD A CONVERTIR     │");
                 System.out.println("└─────────────────────────────┘");
@@ -82,7 +78,7 @@ public class App
                 double cantidadEnUSD = cantidad / tasaOrigen;
                 double resultado = cantidadEnUSD * tasaDestino;
 
-                // Mostrar resultado
+                // Resultado
                 System.out.println("\n┌─────────────────────────────┐");
                 System.out.println("│         RESULTADO           │");
                 System.out.println("└─────────────────────────────┘");
@@ -101,7 +97,7 @@ public class App
 
             } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
-                scanner.nextLine(); // Limpiar el buffer
+                scanner.nextLine(); 
             }
         }
         scanner.close();
@@ -119,7 +115,7 @@ public class App
 
     private static int obtenerOpcionUsuario() {
         int opcion = scanner.nextInt();
-        scanner.nextLine(); // Limpiar el buffer
+        scanner.nextLine();
         return opcion;
     }
 
@@ -130,7 +126,7 @@ public class App
         }
         System.out.print("Seleccione una opción: ");
         int seleccion = scanner.nextInt();
-        scanner.nextLine(); // Limpiar el buffer
+        scanner.nextLine(); 
         return monedas[seleccion - 1];
     }
 
@@ -160,7 +156,7 @@ public class App
             Gson gson = new Gson();
             JsonObject jsonResponse = gson.fromJson(response.body(), JsonObject.class);
 
-            // Extraer información de tasas de cambio específicas
+            // Información de tasas de cambio específicas
             JsonObject rates = jsonResponse.getAsJsonObject("conversion_rates");
             tasas[0] = rates.get(moneda1.name()).getAsString();
             tasas[1] = rates.get(moneda2.name()).getAsString();
